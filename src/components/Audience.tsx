@@ -33,6 +33,9 @@ export default function Audience() {
               src="https://djorgeleal.github.io/synthgelart/1.webp" 
               alt="Pastelero Decorando Gelatina" 
               className="w-full h-[350px] sm:h-[400px] object-cover rounded-2xl"
+              loading="lazy"
+              decoding="async"
+              referrerPolicy="no-referrer"
             />
           </div>
           {/* Accent decoration */}

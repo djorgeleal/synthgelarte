@@ -3,18 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import Countdown from './components/Countdown';
 import Features from './components/Features';
 import Audience from './components/Audience';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
-import EnrollModal from './components/EnrollModal';
-import VideoModal from './components/VideoModal';
-import StudentPortal from './components/StudentPortal';
 import Footer from './components/Footer';
-import IntroVideoModal from './components/IntroVideoModal';
+
+// Lazy load modals and heavy student portal to reduce initial page load bundle size
+const EnrollModal = lazy(() => import('./components/EnrollModal'));
+const VideoModal = lazy(() => import('./components/VideoModal'));
+const IntroVideoModal = lazy(() => import('./components/IntroVideoModal'));
+const StudentPortal = lazy(() => import('./components/StudentPortal'));
 
 import { Play, Sparkles, ShieldCheck, Heart, UserCheck, Star, BookOpen, ArrowRight, ArrowUp, Flame } from 'lucide-react';
 
@@ -71,14 +73,17 @@ export default function App() {
           {/* Hero Section */}
           <section className="relative min-h-[calc(100vh-64px)] w-full overflow-hidden flex flex-col justify-center py-16">
             {/* Background Image / Blur Orbs as in the original layout */}
-            {/* On mobile it spans w-full and has opacity-25. On tablet and desktop, it is expanded to cover the full viewport width (inset-0) so it does not get cropped or pixelated */}
-            <div className="absolute inset-0 w-full h-full opacity-30 md:opacity-50 lg:opacity-75 pointer-events-none -z-10">
-              <div className="absolute inset-0 bg-gradient-to-r from-rose-50/40 via-rose-50/20 to-rose-50/90 md:from-rose-50/10 md:via-rose-50/30 md:to-rose-50/80" />
+            {/* On mobile, tablet and desktop, it has the same opacity and gradient as desktop to ensure a consistent, beautiful presentation across all viewports */}
+            <div className="absolute inset-0 w-full h-full opacity-75 pointer-events-none -z-10">
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-50/10 via-rose-50/30 to-rose-50/80" />
               <img 
                 src="https://djorgeleal.github.io/synthgelart/2.webp" 
                 alt="Gelatina Artística SynthGelArt" 
                 className="w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
               />
             </div>
 
@@ -262,32 +267,41 @@ export default function App() {
         </>
       ) : (
         /* Render student area if current view is student (unlocked) */
-        <StudentPortal />
+        <Suspense fallback={
+          <div className="flex flex-col justify-center items-center h-96 py-12 gap-4">
+            <div className="animate-spin rounded-full h-10 w-10 border-4 border-amber-500 border-t-transparent"></div>
+            <p className="font-sans text-xs text-amber-900 font-semibold animate-pulse">Cargando Academia...</p>
+          </div>
+        }>
+          <StudentPortal />
+        </Suspense>
       )}
 
       {/* Footer */}
       <Footer />
 
-      {/* Modals */}
-      <EnrollModal 
-        isOpen={isEnrollOpen} 
-        onClose={() => setIsEnrollOpen(false)} 
-        onSuccessUnlock={handleUnlockSuccess} 
-      />
+      {/* Modals - Wrapped in Suspense for asynchronous lazy loading */}
+      <Suspense fallback={null}>
+        <EnrollModal 
+          isOpen={isEnrollOpen} 
+          onClose={() => setIsEnrollOpen(false)} 
+          onSuccessUnlock={handleUnlockSuccess} 
+        />
 
-      <VideoModal 
-        isOpen={isVideoOpen} 
-        onClose={() => setIsVideoOpen(false)} 
-        onEnroll={() => {
-          setIsVideoOpen(false);
-          setIsEnrollOpen(true);
-        }} 
-      />
+        <VideoModal 
+          isOpen={isVideoOpen} 
+          onClose={() => setIsVideoOpen(false)} 
+          onEnroll={() => {
+            setIsVideoOpen(false);
+            setIsEnrollOpen(true);
+          }} 
+        />
 
-      <IntroVideoModal 
-        isOpen={isIntroVideoOpen} 
-        onClose={() => setIsIntroVideoOpen(false)} 
-      />
+        <IntroVideoModal 
+          isOpen={isIntroVideoOpen} 
+          onClose={() => setIsIntroVideoOpen(false)} 
+        />
+      </Suspense>
 
       {/* Scroll to Top Button */}
       <button

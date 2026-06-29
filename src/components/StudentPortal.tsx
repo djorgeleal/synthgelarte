@@ -10,6 +10,18 @@ export default function StudentPortal() {
   const [completedLessons, setCompletedLessons] = useState<string[]>(['l1']);
   const [activeTab, setActiveTab] = useState<'lessons' | 'templates' | 'suppliers'>('lessons');
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'info' } | null>(null);
+
+  const showToast = (message: string, type: 'success' | 'info' = 'success') => {
+    setToast({ message, type });
+  };
+
+  React.useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   const lessons = [
     { id: 'l1', title: 'Fundamentos: La grenetina de alta firmeza', duration: '12 min', desc: 'Aprende las diferencias entre Bloom 250 y 310, y cómo hidratarla correctamente.', difficulty: 'Fácil' },
@@ -44,7 +56,7 @@ export default function StudentPortal() {
     setDownloadingId(id);
     setTimeout(() => {
       setDownloadingId(null);
-      alert('¡Plantilla descargada con éxito en tu dispositivo! (Simulación de descarga completada)');
+      showToast('¡Plantilla descargada con éxito en tu dispositivo!', 'success');
     }, 1500);
   };
 
@@ -170,7 +182,7 @@ export default function StudentPortal() {
                 </div>
 
                 <button 
-                  onClick={() => alert(`Iniciando reproducción de la Lección ${idx + 1}: ${lesson.title}`)}
+                  onClick={() => showToast(`Iniciando reproducción de la Lección ${idx + 1}...`, 'info')}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition-all cursor-pointer shadow-xs whitespace-nowrap self-end sm:self-center"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
@@ -205,7 +217,7 @@ export default function StudentPortal() {
               <p className="font-serif font-bold text-sm text-gray-800">Certificado SynthGelArt</p>
               <p className="font-sans text-[10px] text-gray-400 mt-0.5">Otorgado por completar con éxito el programa de Gelatinas Transfer Artísticas.</p>
               <button 
-                onClick={() => alert('¡Felicidades! Aquí está tu certificado de finalización de SynthGelArt.')}
+                onClick={() => showToast('¡Felicidades! Se ha generado tu certificado de finalización PDF.', 'success')}
                 className="mt-4 bg-amber-500 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer"
               >
                 Descargar PDF
@@ -238,7 +250,7 @@ export default function StudentPortal() {
               <p className="font-sans text-xs text-gray-500 mt-0.5">Descarga los archivos digitales en alta resolución listos para imprimir en modo espejo.</p>
             </div>
             <button 
-              onClick={() => alert('¡Iniciando descarga del paquete completo zip con 200 diseños!')}
+              onClick={() => showToast('¡Iniciando descarga del paquete completo de 200 diseños (ZIP)!', 'success')}
               className="flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
             >
               <Download className="w-4 h-4" />
@@ -315,6 +327,14 @@ export default function StudentPortal() {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Floating Safe Toast Notification System */}
+      {toast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-neutral-900 text-white px-6 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-neutral-800 transition-all duration-300">
+          <div className={`w-2 h-2 rounded-full ${toast.type === 'success' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]' : 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]'}`} />
+          <p className="font-sans text-xs font-bold tracking-wide">{toast.message}</p>
         </div>
       )}
 

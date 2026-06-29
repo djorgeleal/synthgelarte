@@ -20,6 +20,14 @@ export default function ImageSlider() {
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Preload all slider images on mount for instant visual swap
+  useEffect(() => {
+    SLIDE_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   // Auto-slide effect
   useEffect(() => {
     if (!isHovered) {
@@ -102,6 +110,8 @@ export default function ImageSlider() {
             className="w-full h-full object-cover select-none"
             alt={`Gelatina de transferencia premium ${currentIndex + 1}`}
             referrerPolicy="no-referrer"
+            loading="eager"
+            decoding="async"
           />
         </AnimatePresence>
 

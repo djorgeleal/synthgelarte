@@ -48,6 +48,9 @@ export default function Testimonials() {
                       src={t.avatar}
                       alt={t.name}
                       className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs"
+                      loading="lazy"
+                      decoding="async"
+                      referrerPolicy="no-referrer"
                     />
                     <div>
                       <h4 className="font-serif font-bold text-gray-800 text-sm sm:text-base leading-none">
@@ -94,6 +97,9 @@ export default function Testimonials() {
                   src={TESTIMONIALS[activeTestimonial].beforeImg}
                   alt="Gelatina básica antes"
                   className="w-full h-40 object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
                 />
                 <span className="absolute bottom-2 left-2 bg-neutral-900/75 text-white font-sans text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md">
                   Antes (Básica)
@@ -106,6 +112,9 @@ export default function Testimonials() {
                   src={TESTIMONIALS[activeTestimonial].afterImg}
                   alt="Gelatina transfer después"
                   className="w-full h-40 object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
                 />
                 <span className="absolute bottom-2 left-2 bg-amber-500 text-neutral-950 font-sans text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-md shadow-xs">
                   Después (Transfer Pro)

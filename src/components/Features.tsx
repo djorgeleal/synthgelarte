@@ -89,6 +89,8 @@ export default function Features() {
                       alt="Certificado Oficial de Finalización"
                       className="w-full h-auto object-cover rounded-lg"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ) : isCommunity ? (
@@ -98,6 +100,8 @@ export default function Features() {
                       alt="Únete a la Comunidad Privada de WhatsApp"
                       className="w-full h-auto object-cover rounded-lg"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ) : (

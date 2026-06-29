@@ -27,6 +27,9 @@ export default function Header({ currentView, setView, isUnlocked, onOpenEnroll 
               alt="SynthGelArt Logo" 
               className="w-10 h-10 object-contain"
               referrerPolicy="no-referrer"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
             />
             <div className="flex flex-col">
               <span className="font-serif font-bold text-lg leading-none tracking-wide text-amber-800">
