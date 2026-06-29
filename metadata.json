@@ -1,0 +1,6 @@
+{
+  "name": "SynthGelArt - Gelatinas Transfer",
+  "description": "Masterclass interactiva de gelatinas transfer para aprender a diseñar, transferir e iniciar tu negocio de repostería creativa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
