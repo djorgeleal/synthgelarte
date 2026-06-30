@@ -82,7 +82,7 @@ export default function App() {
                 className="w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
                 decoding="async"
               />
             </div>

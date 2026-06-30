@@ -28,7 +28,7 @@ export default function Header({ currentView, setView, isUnlocked, onOpenEnroll 
               className="w-10 h-10 object-contain"
               referrerPolicy="no-referrer"
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
             />
             <div className="flex flex-col">

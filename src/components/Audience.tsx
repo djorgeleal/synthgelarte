@@ -10,7 +10,7 @@ export default function Audience() {
   const points = [
     {
       title: 'Reposteros que buscan Innovar',
-      desc: 'Leva tus postres al siguiente nivel con imágenes que parecen impresas directamente en el cristal de la gelatina, deslumbrando a tus clientes de repostería.'
+      desc: 'Lleva tus postres al siguiente nivel con imágenes que parecen impresas directamente en el cristal de la gelatina, deslumbrando a tus clientes de repostería.'
     },
     {
       title: 'Emprendedores de Regalos',
