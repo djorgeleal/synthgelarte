@@ -119,8 +119,33 @@ export default function IntroVideoModal({ isOpen, onClose }: IntroVideoModalProp
             src="https://djorgeleal.github.io/synthgelart/synthgelart.mp4"
             playsInline
             onEnded={handleVideoEnded}
-            className="w-full h-full object-contain"
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            className="w-full h-full object-contain cursor-pointer"
+            onClick={() => {
+              if (!showPlayOverlay && videoRef.current) {
+                if (videoRef.current.paused) {
+                  videoRef.current.play().catch(err => console.log("Intro play failed on click:", err));
+                } else {
+                  videoRef.current.pause();
+                }
+              }
+            }}
           />
+
+          {/* Giant play indicator if video is paused manually after starting */}
+          {!isPlaying && !showPlayOverlay && (
+            <button
+              onClick={() => {
+                if (videoRef.current) {
+                  videoRef.current.play().catch(err => console.log("Intro play button clicked failed:", err));
+                }
+              }}
+              className="absolute w-16 h-16 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-20 cursor-pointer"
+            >
+              <Play className="w-8 h-8 fill-current ml-1" />
+            </button>
+          )}
 
           {/* Large Unmute / Play Prompt Overlay if Autoplay with Audio got Restricted */}
           {showPlayOverlay && (

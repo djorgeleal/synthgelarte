@@ -19,6 +19,7 @@ export default function EnrollModal({ isOpen, onClose, onSuccessUnlock }: Enroll
   const [selectedCurrency, setSelectedCurrency] = useState<'USD' | 'MXN' | 'COP'>('USD');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registered, setRegistered] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -32,8 +33,9 @@ export default function EnrollModal({ isOpen, onClose, onSuccessUnlock }: Enroll
 
   const handleWhatsAppCheckout = (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     if (!name || !email || !phone) {
-      alert('Por favor completa todos los campos.');
+      setError('Por favor completa todos los campos.');
       return;
     }
 
@@ -66,8 +68,9 @@ export default function EnrollModal({ isOpen, onClose, onSuccessUnlock }: Enroll
   };
 
   const handleInstantUnlock = () => {
+    setError(null);
     if (!name || !email) {
-      alert('Por favor, ingresa al menos tu Nombre y Correo Electrónico para simular tu ingreso.');
+      setError('Por favor, ingresa al menos tu Nombre y Correo Electrónico para simular tu ingreso.');
       return;
     }
     setIsSubmitting(true);
@@ -106,6 +109,15 @@ export default function EnrollModal({ isOpen, onClose, onSuccessUnlock }: Enroll
         </div>
 
         <div className="overflow-y-auto p-6 flex-1 space-y-6">
+          {error && (
+            <div className="bg-rose-50 border border-rose-100 text-rose-800 text-xs font-semibold px-4 py-3 rounded-xl flex items-center justify-between gap-2">
+              <span>{error}</span>
+              <button type="button" onClick={() => setError(null)} className="text-rose-600 hover:text-rose-800 font-bold px-1">
+                ✕
+              </button>
+            </div>
+          )}
+
           {/* Prices Toggles */}
           <div>
             <span className="font-sans text-xs font-bold text-gray-500 block mb-2 uppercase tracking-wider">

@@ -29,12 +29,12 @@ export default function VideoModal({ isOpen, onClose, onEnroll }: VideoModalProp
   // Sync play/pause state
   useEffect(() => {
     if (videoRef.current) {
-      if (isPlaying) {
+      if (isPlaying && videoRef.current.paused) {
         videoRef.current.play().catch((err) => {
           console.log("Play blocked or failed:", err);
           setIsPlaying(false);
         });
-      } else {
+      } else if (!isPlaying && !videoRef.current.paused) {
         videoRef.current.pause();
       }
     }
@@ -167,14 +167,28 @@ export default function VideoModal({ isOpen, onClose, onEnroll }: VideoModalProp
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
               onEnded={handleVideoEnded}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
               className="w-full h-full object-cover cursor-pointer"
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={() => {
+                if (videoRef.current) {
+                  if (videoRef.current.paused) {
+                    videoRef.current.play().catch(err => console.log("Play failed on video click:", err));
+                  } else {
+                    videoRef.current.pause();
+                  }
+                }
+              }}
             />
 
             {/* Play/Pause Giant Indicator if paused */}
             {!isPlaying && (
               <button
-                onClick={() => setIsPlaying(true)}
+                onClick={() => {
+                  if (videoRef.current) {
+                    videoRef.current.play().catch(err => console.log("Play failed on button click:", err));
+                  }
+                }}
                 className="absolute w-16 h-16 rounded-full bg-amber-500/90 text-neutral-950 flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-20 cursor-pointer"
               >
                 <Play className="w-8 h-8 fill-current ml-1" />

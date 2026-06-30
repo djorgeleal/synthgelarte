@@ -4,13 +4,14 @@
  */
 
 import React, { useState } from 'react';
-import { BookOpen, CheckCircle, Download, ExternalLink, Sparkles, Store, Lock, Play, Award, Compass, RefreshCw } from 'lucide-react';
+import { BookOpen, CheckCircle, Download, ExternalLink, Sparkles, Store, Lock, Play, Award, Compass, RefreshCw, X } from 'lucide-react';
 
 export default function StudentPortal() {
   const [completedLessons, setCompletedLessons] = useState<string[]>(['l1']);
   const [activeTab, setActiveTab] = useState<'lessons' | 'templates' | 'suppliers'>('lessons');
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'info' } | null>(null);
+  const [activeLessonVideo, setActiveLessonVideo] = useState<{ title: string; num: number } | null>(null);
 
   const showToast = (message: string, type: 'success' | 'info' = 'success') => {
     setToast({ message, type });
@@ -182,7 +183,10 @@ export default function StudentPortal() {
                 </div>
 
                 <button 
-                  onClick={() => showToast(`Iniciando reproducción de la Lección ${idx + 1}...`, 'info')}
+                  onClick={() => {
+                    setActiveLessonVideo({ title: lesson.title, num: idx + 1 });
+                    showToast(`Iniciando reproducción de la Lección ${idx + 1}...`, 'info');
+                  }}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition-all cursor-pointer shadow-xs whitespace-nowrap self-end sm:self-center"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
@@ -335,6 +339,44 @@ export default function StudentPortal() {
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-neutral-900 text-white px-6 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-neutral-800 transition-all duration-300">
           <div className={`w-2 h-2 rounded-full ${toast.type === 'success' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]' : 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]'}`} />
           <p className="font-sans text-xs font-bold tracking-wide">{toast.message}</p>
+        </div>
+      )}
+
+      {/* Interactive Lesson Video Player Modal */}
+      {activeLessonVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div className="bg-neutral-950 border border-neutral-800 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl flex flex-col relative aspect-video">
+            {/* Header controls */}
+            <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-30">
+              <span className="bg-amber-500 text-neutral-950 text-[10px] font-extrabold px-3 py-1 rounded-md uppercase tracking-wider shadow-md">
+                Lección {activeLessonVideo.num}
+              </span>
+              <button
+                onClick={() => setActiveLessonVideo(null)}
+                className="text-white hover:text-rose-500 p-1.5 rounded-full bg-black/60 hover:bg-black/80 transition-all cursor-pointer shadow-lg"
+                title="Cerrar lección"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Title overlay in bottom */}
+            <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-xs p-3.5 rounded-2xl z-30 border border-white/5">
+              <p className="font-serif font-bold text-white text-xs sm:text-sm">{activeLessonVideo.title}</p>
+              <p className="font-sans text-[10px] text-amber-400 mt-0.5 font-bold">Academia SynthGelArt • Reproducción en curso</p>
+            </div>
+
+            {/* Video Element */}
+            <div className="w-full h-full bg-black flex items-center justify-center">
+              <video
+                src="https://djorgeleal.github.io/synthgelart/davianaleal.mp4"
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
         </div>
       )}
 
