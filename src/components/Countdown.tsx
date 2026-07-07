@@ -52,7 +52,7 @@ export default function Countdown() {
     <section className="bg-amber-50 py-8 border-y border-amber-200/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center gap-6">
         <p className="font-serif font-bold text-lg sm:text-xl text-amber-900 text-center md:text-left">
-          ⏱️ ¡Oferta disponible por tiempo limitado!
+          ⏱️ ¡Entra rápido al grupo de Whatsapp!
         </p>
         <div className="flex gap-4">
           <div className="flex flex-col items-center">
