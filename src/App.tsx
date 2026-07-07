@@ -18,7 +18,7 @@ const VideoModal = lazy(() => import('./components/VideoModal'));
 const IntroVideoModal = lazy(() => import('./components/IntroVideoModal'));
 const StudentPortal = lazy(() => import('./components/StudentPortal'));
 
-import { Play, Sparkles, ShieldCheck, Heart, UserCheck, Star, BookOpen, ArrowRight, ArrowUp, Flame } from 'lucide-react';
+import { Play, Sparkles, ShieldCheck, Heart, UserCheck, Star, BookOpen, ArrowRight, ArrowUp, Flame, MessageCircle } from 'lucide-react';
 
 export default function App() {
   const [currentView, setView] = useState<'landing' | 'student'>('landing');
@@ -114,13 +114,19 @@ export default function App() {
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center">
                   <a
-                    href="https://go.hotmart.com/K106418306B?ap=14bd"
+                    href="https://chat.whatsapp.com/FYZcOV8M8ZBBTmJVnmrsZV"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto bg-[#FF5100] hover:bg-[#E04700] text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider px-8 py-4 rounded-xl shadow-lg shadow-[#FF5100]/25 hover:shadow-[#FF5100]/40 transition-all hover:-translate-y-0.5 duration-300 flex items-center justify-center gap-3 cursor-pointer text-center"
+                    className="w-full sm:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider px-8 py-4 rounded-xl shadow-xl shadow-[#25D366]/40 hover:shadow-[#25D366]/60 transition-all hover:-translate-y-1 active:translate-y-0 duration-300 flex items-center justify-center gap-3.5 cursor-pointer text-center ring-4 ring-[#25D366]/20 hover:ring-[#25D366]/45"
                   >
-                    <Flame className="w-5 h-5 text-amber-300 fill-amber-300 animate-pulse" />
-                    ¡INSCRÍBETE HOY MISMO EN HOTMART!
+                    <svg 
+                      viewBox="0 0 24 24" 
+                      className="w-6 h-6 fill-current animate-pulse text-white drop-shadow-md"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M12.004 0C5.372 0 0 5.372 0 12.004c0 2.112.551 4.165 1.597 5.975L.053 24l6.195-1.625a11.95 11.95 0 005.756 1.63h.005c6.632 0 12.004-5.372 12.004-12.004C24.013 5.372 18.636 0 12.004 0zm6.592 16.944c-.27.76-1.56 1.48-2.15 1.57-.49.08-1.12.1-3.23-.77-2.7-1.11-4.44-3.86-4.57-4.04-.14-.18-1.11-1.48-1.11-2.82 0-1.34.7-1.99.95-2.26.25-.26.56-.33.74-.33.18 0 .36 0 .52.01.17.01.4.01.62.54.22.54.76 1.86.83 2 .07.14.12.31.02.51-.1.2-.21.32-.36.49-.15.17-.32.39-.45.52-.15.15-.31.32-.13.62.18.3.8 1.31 1.71 2.12.92.82 1.69 1.07 1.99 1.23.3.15.48.13.66-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.71-.15.29.11 1.86.88 2.18 1.04.32.16.53.24.61.38.08.14.08.81-.19 1.57z" />
+                    </svg>
+                    ¡ÚNETE A NUESTRO GRUPO DE WHATSAPP!
                   </a>
 
                   <div 
@@ -248,18 +254,24 @@ export default function App() {
                 ¿Lista para asombrar con tus creaciones?
               </h2>
               <p className="font-sans text-xs sm:text-sm text-amber-200/80 max-w-xl mx-auto leading-relaxed">
-                Únete hoy mismo a la Masterclass de Synthgelart. Al inscribirte en Hotmart asegurarás tu acceso instantáneo y exclusivo para potenciar toda tu creatividad.
+                Únete hoy mismo al grupo de Whatsapp, al entrar estas asegurando tu acceso a las herramientas necesarias para tu emprendimiento y potenciar tu creatividad.
               </p>
 
               <div className="pt-4 flex flex-col sm:flex-row justify-center gap-4 items-center">
                 <a
-                  href="https://go.hotmart.com/K106418306B?ap=14bd"
+                  href="https://chat.whatsapp.com/FYZcOV8M8ZBBTmJVnmrsZV"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto bg-[#FF5100] hover:bg-[#E04700] text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider px-8 py-4 rounded-xl shadow-lg shadow-[#FF5100]/25 hover:shadow-[#FF5100]/40 transition-all hover:-translate-y-0.5 duration-300 flex items-center justify-center gap-3 cursor-pointer text-center"
+                  className="w-full sm:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider px-8 py-4 rounded-xl shadow-xl shadow-[#25D366]/40 hover:shadow-[#25D366]/60 transition-all hover:-translate-y-1 active:translate-y-0 duration-300 flex items-center justify-center gap-3.5 cursor-pointer text-center ring-4 ring-[#25D366]/20 hover:ring-[#25D366]/45"
                 >
-                  <Flame className="w-5 h-5 text-amber-300 fill-amber-300 animate-pulse" />
-                  ¡INSCRÍBETE HOY MISMO EN HOTMART!
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    className="w-6 h-6 fill-current animate-pulse text-white drop-shadow-md"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M12.004 0C5.372 0 0 5.372 0 12.004c0 2.112.551 4.165 1.597 5.975L.053 24l6.195-1.625a11.95 11.95 0 005.756 1.63h.005c6.632 0 12.004-5.372 12.004-12.004C24.013 5.372 18.636 0 12.004 0zm6.592 16.944c-.27.76-1.56 1.48-2.15 1.57-.49.08-1.12.1-3.23-.77-2.7-1.11-4.44-3.86-4.57-4.04-.14-.18-1.11-1.48-1.11-2.82 0-1.34.7-1.99.95-2.26.25-.26.56-.33.74-.33.18 0 .36 0 .52.01.17.01.4.01.62.54.22.54.76 1.86.83 2 .07.14.12.31.02.51-.1.2-.21.32-.36.49-.15.17-.32.39-.45.52-.15.15-.31.32-.13.62.18.3.8 1.31 1.71 2.12.92.82 1.69 1.07 1.99 1.23.3.15.48.13.66-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.71-.15.29.11 1.86.88 2.18 1.04.32.16.53.24.61.38.08.14.08.81-.19 1.57z" />
+                  </svg>
+                  ¡ÚNETE A NUESTRO GRUPO DE WHATSAPP!
                 </a>
               </div>
             </div>
